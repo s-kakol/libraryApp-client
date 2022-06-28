@@ -1,9 +1,10 @@
 import axios from 'axios';
+import Book from '../types/book.type';
 const baseUrl = 'http://localhost:3001';
 
 export const getAll = async () => {
   const response = await axios.get(`${baseUrl}/books`);
-  console.log(response.data);
+  return response.data;
 };
 
 export const getMostPopular = async (length?: number) => {
