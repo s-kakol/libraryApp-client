@@ -5,6 +5,7 @@ import Books from './pages/Books';
 import Contact from './pages/Contact';
 import Home from './pages/Home';
 import Navbar from './components/Navbar';
+import NotFound from './pages/NotFound';
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
           <Route path="/books" element={<Books />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Container>
     </>
