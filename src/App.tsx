@@ -1,5 +1,21 @@
-function App() {
-  return <h1>Hi</h1>;
-}
+import { Container } from 'react-bootstrap';
+import { Route, Routes } from 'react-router-dom';
+import About from './pages/About';
+import Books from './pages/Books';
+import Contact from './pages/Contact';
+import Home from './pages/Home';
+
+const App = () => {
+  return (
+    <Container className="mb-4">
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/books" element={<Books />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
+    </Container>
+  );
+};
 
 export default App;
