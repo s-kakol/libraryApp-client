@@ -8,7 +8,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import BookDetailsTable from '../components/book/BookDetailsTable';
-// import ReviewsList from '../components/ReviewsList';
+import ReviewsList from '../components/ReviewsList';
 import DisplayRating from '../components/DisplayRating';
 
 const emptyBook = {
@@ -70,11 +70,10 @@ const BookDetails = (): JSX.Element => {
 
   const renderReviews = (): JSX.Element => {
     return (
-      <h1>Reviews</h1>
-      // <Row>
-      //   <h3 style={{ textAlign: 'left' }}>Reviews:</h3>
-      //   <ReviewsList reviews={book.reviews} />
-      // </Row>
+      <Row>
+        <h3 style={{ textAlign: 'left' }}>Reviews:</h3>
+        <ReviewsList reviews={book.reviews} />
+      </Row>
     );
   };
 
