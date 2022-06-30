@@ -7,7 +7,7 @@ type Book = {
   coverImgUrl: string;
   createdAt: Date;
   description: string;
-  genre: Genre;
+  genre: Genre[];
   id: string;
   isbn: number;
   pages: number;
@@ -19,7 +19,7 @@ type Book = {
   title: string;
 };
 
-enum Genre {
+export enum Genre {
   ADVENTURE = 'Adventure',
   BIOGRAPHY = 'Biography',
   BUSINESS = 'Business',
