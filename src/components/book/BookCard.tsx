@@ -12,7 +12,11 @@ const BookCard = ({ book }: BookCardProps): JSX.Element => {
       style={{ width: '18rem', margin: '0.3rem', height: 'auto' }}
       className="d-block w-100 shadow-sm"
     >
-      <Card.Link as={Link} to={`/books/${book.id}`}>
+      <Card.Link
+        as={Link}
+        to={`/books/${book.id}`}
+        style={{ textDecoration: 'inherit', color: 'inherit' }}
+      >
         <Card.Img
           variant="top"
           src={book.coverImgUrl}
