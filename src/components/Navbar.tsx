@@ -7,7 +7,6 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Genre } from '../utilities/types/book.type';
 
 const genres = Object.values(Genre) as unknown as Array<keyof typeof Genre>;
-console.log(genres);
 
 const Navbar = (): JSX.Element => {
   return (
