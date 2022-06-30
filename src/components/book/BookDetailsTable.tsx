@@ -2,13 +2,13 @@ import Table from 'react-bootstrap/Table';
 import { Genre } from '../../utilities/types/book.type';
 
 type BookDetailsTableProps = {
-  isbn: number;
-  title: string;
-  author: string;
-  publisher: string;
-  publicationYear: number;
-  genre: Genre[];
-  pages: number;
+  isbn?: number;
+  title?: string;
+  author?: string;
+  publisher?: string;
+  publicationYear?: number;
+  genre?: Genre[];
+  pages?: number;
 };
 
 const BookDetailsTable = ({

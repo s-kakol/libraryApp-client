@@ -7,6 +7,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
+import BookDetailsTable from '../components/book/BookDetailsTable';
 
 const BookDetails = (): JSX.Element => {
   const id = useParams().id || '';
@@ -62,15 +63,15 @@ const BookDetails = (): JSX.Element => {
         </Row>
         <Row>OVERVIEW DESCRIPTION</Row>
         <Row>
-          DETAILS
-          <Row>
-            <Col>DETAILS_A1</Col>
-            <Col>DETAILS_B1</Col>
-          </Row>
-          <Row>
-            <Col>DETAILS_A2</Col>
-            <Col>DETAILS_B2</Col>
-          </Row>
+          <BookDetailsTable
+            isbn={book?.isbn}
+            title={book?.title}
+            author={book?.author}
+            publisher={book?.publisher}
+            publicationYear={book?.publicationYear}
+            genre={book?.genre}
+            pages={book?.pages}
+          />
         </Row>
       </Container>
     );
