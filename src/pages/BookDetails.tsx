@@ -7,20 +7,18 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
-import BookDetailsTable from '../components/book/BookDetailsTable';
-import Rating from '../components/Rating';
 
 const BookDetails = (): JSX.Element => {
   const id = useParams().id || '';
   const [book, setBook] = useState<Book>();
-  const [error, setError] = useState<boolean>(false);
+  const [error, setError] = useState<string>();
 
   const initBookDetails = async (id: string) => {
-    try {
-      const result = await bookService.getOneById(id);
+    const result = await bookService.getOneById(id);
+    if (result instanceof Error) {
+      setError(result.message);
+    } else {
       setBook(result);
-    } catch {
-      setError(true);
     }
   };
 
@@ -36,41 +34,44 @@ const BookDetails = (): JSX.Element => {
       display: 'block',
       marginLeft: 'auto',
       marginRight: 'auto',
-      justifyContent: 'center',
+      alignSelf: 'center',
     };
 
+    console.log(book);
     return (
       <Container>
         <Row style={{ margin: '3rem auto' }}>
           <Col>
-            <Image fluid={true} src={book!.coverImgUrl} style={imgStyle} />
+            <Image fluid={true} src={book?.coverImgUrl} style={imgStyle} />
           </Col>
           <Col>
-            <h1 style={{ fontStyle: 'italic' }}>{book!.title}</h1>
-            <p>
-              by{' '}
-              <span style={{ fontStyle: 'italic', fontWeight: 600 }}>
-                {book!.author}
-              </span>
-            </p>
-            <Rating rating={book!.rating} />
             <Col>
-              Copies available {book!.copiesAvailable} out of{' '}
-              {book!.copiesTotal}
+              <h1 style={{ fontStyle: 'italic' }}>{book?.title}</h1>
+              <p>
+                by{' '}
+                <span style={{ fontStyle: 'italic', fontWeight: 600 }}>
+                  {book?.author}
+                </span>
+              </p>
+              <p>{book?.rating}</p>
+            </Col>
+            <Col>
+              Copies available {book?.copiesAvailable} out of{' '}
+              {book?.copiesTotal}
             </Col>
           </Col>
         </Row>
         <Row>OVERVIEW DESCRIPTION</Row>
         <Row>
-          <BookDetailsTable
-            isbn={book!.isbn}
-            title={book!.title}
-            author={book!.author}
-            publisher={book!.publisher}
-            publicationYear={book!.publicationYear}
-            genre={book!.genre}
-            pages={book!.pages}
-          />
+          DETAILS
+          <Row>
+            <Col>DETAILS_A1</Col>
+            <Col>DETAILS_B1</Col>
+          </Row>
+          <Row>
+            <Col>DETAILS_A2</Col>
+            <Col>DETAILS_B2</Col>
+          </Row>
         </Row>
       </Container>
     );
