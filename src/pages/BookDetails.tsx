@@ -7,17 +7,26 @@ import NotFound from './NotFound';
 const BookDetails = (): JSX.Element => {
   const id = useParams().id || '';
   const [book, setBook] = useState<Book>();
+  const [error, setError] = useState<string>();
 
   const initBookDetails = async (id: string) => {
     const result = await bookService.getOneById(id);
-    setBook(result);
+    if (result instanceof Error) {
+      setError(result.message);
+    } else {
+      setBook(result);
+    }
   };
 
   useEffect(() => {
     initBookDetails(id);
   }, []);
 
-  return <h1>{book?.title}</h1>;
+  const renderDetails = (): JSX.Element => {
+    return <h1>{book?.title}</h1>;
+  };
+
+  return !error ? renderDetails() : <NotFound />;
 };
 
 export default BookDetails;
