@@ -8,11 +8,14 @@ type BookCardProps = {
 const BookCard = ({ book }: BookCardProps): JSX.Element => {
   return (
     <Card
-      border="secondary"
-      style={{ width: '18rem' }}
-      className="d-block w-100"
+      style={{ width: '18rem', margin: '0.3rem', height: 'auto' }}
+      className="d-block w-100 shadow-sm"
     >
-      <Card.Img variant="top" src={book.coverImgUrl} />
+      <Card.Img
+        variant="top"
+        src={book.coverImgUrl}
+        alt={`${book.title} cover image`}
+      />
       <Card.Body>
         <Card.Title className="text-center">
           {book.title}
