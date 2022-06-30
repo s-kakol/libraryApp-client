@@ -8,7 +8,7 @@ type CarouselProps = {
   books: Book[];
 };
 
-const Carousel = ({ books }: CarouselProps) => {
+const Carousel = ({ books }: CarouselProps): JSX.Element => {
   const subArraySize = 3;
 
   const subArray = (arr: Book[], size: number): Book[][] =>
