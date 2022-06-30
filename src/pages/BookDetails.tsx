@@ -8,10 +8,31 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import BookDetailsTable from '../components/book/BookDetailsTable';
+import { FaStar } from 'react-icons/fa';
+import ReviewsList from '../components/ReviewsList';
+
+const emptyBook = {
+  author: '',
+  copiesAvailable: 0,
+  copiesTotal: 0,
+  coverImgUrl: '',
+  createdAt: new Date(),
+  description: '',
+  genre: [],
+  id: '',
+  isbn: 0,
+  pages: 0,
+  price: 0,
+  publicationYear: 0,
+  publisher: '',
+  rating: 0,
+  reviews: [],
+  title: '',
+};
 
 const BookDetails = (): JSX.Element => {
   const id = useParams().id || '';
-  const [book, setBook] = useState<Book>();
+  const [book, setBook] = useState<Book>(emptyBook);
   const [error, setError] = useState<boolean>(false);
 
   const initBookDetails = async (id: string) => {
@@ -27,51 +48,85 @@ const BookDetails = (): JSX.Element => {
     initBookDetails(id);
   }, []);
 
-  const renderDetails = (): JSX.Element => {
-    const imgStyle = {
-      borderRadius: 12,
-      maxWidth: '25rem',
-      height: 'auto',
-      display: 'block',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      alignSelf: 'center',
-    };
+  const imgStyle = {
+    borderRadius: 12,
+    maxWidth: '25rem',
+    height: 'auto',
+    display: 'block',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    alignSelf: 'center',
+  };
 
+  const descStyle = {
+    background: '#EBECED',
+    borderStyle: 'double',
+    borderRadius: '5%',
+    borderColor: '#D4D5D6',
+    padding: '1rem 2rem',
+    margin: '1rem',
+    textAlign: 'justify' as const,
+  };
+
+  const renderDetails = (): JSX.Element => {
     return (
       <Container>
         <Row style={{ margin: '3rem auto' }}>
           <Col>
-            <Image fluid={true} src={book?.coverImgUrl} style={imgStyle} />
+            <Image fluid={true} src={book.coverImgUrl} style={imgStyle} />
           </Col>
           <Col>
-            <Col>
-              <h1 style={{ fontStyle: 'italic' }}>{book?.title}</h1>
-              <p>
-                by{' '}
-                <span style={{ fontStyle: 'italic', fontWeight: 600 }}>
-                  {book?.author}
-                </span>
-              </p>
-              <p>{book?.rating}</p>
-            </Col>
-            <Col>
-              Copies available {book?.copiesAvailable} out of{' '}
-              {book?.copiesTotal}
-            </Col>
+            <Row>
+              <h1 style={{ fontStyle: 'italic' }}>{book.title}</h1>
+              <Col>
+                <p>
+                  by{' '}
+                  <span style={{ fontStyle: 'italic', fontWeight: 600 }}>
+                    {book.author}
+                  </span>
+                </p>
+                <p>Available copies: {book.copiesAvailable}</p>
+              </Col>
+              <Col>
+                <div style={{ textAlign: 'right' }}>
+                  {[...Array(5)].map((star, i) => {
+                    return (
+                      <FaStar
+                        className="star"
+                        size={30}
+                        color={
+                          i + 1 <= Number(book.rating) ? '#ffd500' : '#808080'
+                        }
+                        key={i}
+                      />
+                    );
+                  })}
+                  <span
+                    style={{
+                      fontSize: 12,
+                      fontWeight: 700,
+                    }}
+                  >{` - (${book.reviews.length})`}</span>
+                </div>
+              </Col>
+            </Row>
+            <Col style={descStyle}>{book.description}</Col>
           </Col>
         </Row>
-        <Row>OVERVIEW DESCRIPTION</Row>
         <Row>
           <BookDetailsTable
-            isbn={book?.isbn}
-            title={book?.title}
-            author={book?.author}
-            publisher={book?.publisher}
-            publicationYear={book?.publicationYear}
-            genre={book?.genre}
-            pages={book?.pages}
+            isbn={book.isbn}
+            title={book.title}
+            author={book.author}
+            publisher={book.publisher}
+            publicationYear={book.publicationYear}
+            genre={book.genre}
+            pages={book.pages}
           />
+        </Row>
+        <Row>
+          <h3 style={{ textAlign: 'left' }}>Reviews:</h3>
+          <ReviewsList reviews={book.reviews} />
         </Row>
       </Container>
     );
