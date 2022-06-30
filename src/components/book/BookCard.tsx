@@ -14,7 +14,7 @@ const BookCard = ({ book }: BookCardProps): JSX.Element => {
     >
       <Card.Link
         as={Link}
-        to={`/books/${book.id}`}
+        to={`/book/${book.id}`}
         style={{ textDecoration: 'inherit', color: 'inherit' }}
       >
         <Card.Img
