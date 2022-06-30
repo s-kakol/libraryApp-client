@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Carousel from '../components/Carousel';
+import BookCarousel from '../components/book/BookCarousel';
 import NewsList from '../components/NewsList';
 import bookService from '../utilities/services/books';
 import newsService from '../utilities/services/news';
@@ -30,7 +30,7 @@ const Home = (): JSX.Element => {
     <>
       <div style={{ margin: '2rem' }}>
         <h3 className="text-center">Recommended by our readers</h3>
-        <Carousel books={popularBooks} />
+        <BookCarousel books={popularBooks} />
       </div>
       <NewsList news={newsList} />
     </>

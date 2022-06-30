@@ -1,14 +1,14 @@
-import CarouselBs from 'react-bootstrap/Carousel';
+import Carousel from 'react-bootstrap/Carousel';
 import CarouselItem from 'react-bootstrap/CarouselItem';
 import CardGroup from 'react-bootstrap/CardGroup';
 import BookCard from './BookCard';
-import Book from '../utilities/types/book.type';
+import Book from '../../utilities/types/book.type';
 
-type CarouselProps = {
+type BookCarouselProps = {
   books: Book[];
 };
 
-const Carousel = ({ books }: CarouselProps): JSX.Element => {
+const BookCarousel = ({ books }: BookCarouselProps): JSX.Element => {
   const subArraySize = 3;
 
   const subArray = (arr: Book[], size: number): Book[][] =>
@@ -19,7 +19,7 @@ const Carousel = ({ books }: CarouselProps): JSX.Element => {
   const bookGroups = subArray(books, subArraySize);
 
   return (
-    <CarouselBs variant="dark" controls={false}>
+    <Carousel variant="dark" controls={false}>
       {bookGroups.map((booksSubGroup, i) => (
         <CarouselItem key={i}>
           <CardGroup>
@@ -29,8 +29,8 @@ const Carousel = ({ books }: CarouselProps): JSX.Element => {
           </CardGroup>
         </CarouselItem>
       ))}
-    </CarouselBs>
+    </Carousel>
   );
 };
 
-export default Carousel;
+export default BookCarousel;
