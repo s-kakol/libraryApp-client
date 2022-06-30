@@ -8,8 +8,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import BookDetailsTable from '../components/book/BookDetailsTable';
-import { FaStar } from 'react-icons/fa';
-import ReviewsList from '../components/ReviewsList';
+// import ReviewsList from '../components/ReviewsList';
+import DisplayRating from '../components/DisplayRating';
 
 const emptyBook = {
   author: '',
@@ -68,6 +68,16 @@ const BookDetails = (): JSX.Element => {
     textAlign: 'justify' as const,
   };
 
+  const renderReviews = (): JSX.Element => {
+    return (
+      <h1>Reviews</h1>
+      // <Row>
+      //   <h3 style={{ textAlign: 'left' }}>Reviews:</h3>
+      //   <ReviewsList reviews={book.reviews} />
+      // </Row>
+    );
+  };
+
   const renderDetails = (): JSX.Element => {
     return (
       <Container>
@@ -89,18 +99,7 @@ const BookDetails = (): JSX.Element => {
               </Col>
               <Col>
                 <div style={{ textAlign: 'right' }}>
-                  {[...Array(5)].map((star, i) => {
-                    return (
-                      <FaStar
-                        className="star"
-                        size={30}
-                        color={
-                          i + 1 <= Number(book.rating) ? '#ffd500' : '#808080'
-                        }
-                        key={i}
-                      />
-                    );
-                  })}
+                  <DisplayRating rating={book.rating} />
                   <span
                     style={{
                       fontSize: 12,
@@ -124,10 +123,7 @@ const BookDetails = (): JSX.Element => {
             pages={book.pages}
           />
         </Row>
-        <Row>
-          <h3 style={{ textAlign: 'left' }}>Reviews:</h3>
-          <ReviewsList reviews={book.reviews} />
-        </Row>
+        {book.reviews.length > 0 ? renderReviews() : null}
       </Container>
     );
   };
