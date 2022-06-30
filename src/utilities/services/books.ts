@@ -1,4 +1,5 @@
 import axios from 'axios';
+import getErrorMessage from '../errorHandler';
 import Book from '../types/book.type';
 const baseUrl = 'http://localhost:3001/books';
 
@@ -20,12 +21,12 @@ const getMostPopular = async (length?: number): Promise<Book[]> => {
   return await result;
 };
 
-const getOneById = async (id: string): Promise<Book | any> => {
+const getOneById = async (id: string): Promise<Book> => {
   try {
     const response = await axios.get(`${baseUrl}/${id}`);
     return response.data;
-  } catch (error) {
-    return error;
+  } catch (err) {
+    throw new Error(getErrorMessage(err));
   }
 };
 
