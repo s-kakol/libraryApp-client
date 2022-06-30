@@ -3,20 +3,14 @@ import CarouselItem from 'react-bootstrap/CarouselItem';
 import CardGroup from 'react-bootstrap/CardGroup';
 import BookCard from './BookCard';
 import Book from '../../utilities/types/book.type';
+import { createSubArray } from '../../utilities/bookSubArray';
 
 type BookCarouselProps = {
   books: Book[];
 };
 
 const BookCarousel = ({ books }: BookCarouselProps): JSX.Element => {
-  const subArraySize = 3;
-
-  const subArray = (arr: Book[], size: number): Book[][] =>
-    [...Array(Math.ceil(arr.length / size))].map((_, i) =>
-      arr.slice(size * i, size + size * i)
-    );
-
-  const bookGroups = subArray(books, subArraySize);
+  const bookGroups = createSubArray(books, 3);
 
   return (
     <Carousel variant="dark" controls={false}>
