@@ -3,6 +3,11 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import { NavLink } from 'react-router-dom';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import { Genre } from '../utilities/types/book.type';
+
+const genres = Object.values(Genre) as unknown as Array<keyof typeof Genre>;
+console.log(genres);
 
 const Navbar = (): JSX.Element => {
   return (
@@ -12,9 +17,23 @@ const Navbar = (): JSX.Element => {
           <Nav.Link as={NavLink} to={'/'}>
             Home
           </Nav.Link>
-          <Nav.Link as={NavLink} to={'/books'}>
-            Books
-          </Nav.Link>
+          <NavDropdown title="Books">
+            <NavDropdown.Item as={NavLink} to={'/books'}>
+              All
+            </NavDropdown.Item>
+            <NavDropdown.Divider />
+            {genres.map(genre => {
+              return (
+                <NavDropdown.Item
+                  key={genre}
+                  as={NavLink}
+                  to={`/books/${genre}`}
+                >
+                  {String(genre)}
+                </NavDropdown.Item>
+              );
+            })}
+          </NavDropdown>
           <Nav.Link as={NavLink} to={'/contact'}>
             Contact
           </Nav.Link>

@@ -1,5 +1,8 @@
+import { useParams } from 'react-router-dom';
+
 const Books = (): JSX.Element => {
-  return <h1>Books</h1>;
+  const genre = useParams().genre || null;
+  return <h1>Books {genre}</h1>;
 };
 
 export default Books;
