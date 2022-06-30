@@ -1,6 +1,7 @@
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import { Link } from 'react-router-dom';
 
 const Footer = (): JSX.Element => {
   const baseUrl = 'https://github.com/s-kakol/libraryApp';
@@ -20,9 +21,10 @@ const Footer = (): JSX.Element => {
             <a href={`${baseUrl}-server`} style={linkStyle}>
               <p>Server Source Code</p>
             </a>
-            <p></p>
             <p>Privacy Policy</p>
-            <p>Contact Information</p>
+            <Link to={'/contact'} style={linkStyle}>
+              <p>Contact Information</p>
+            </Link>
           </Col>
           <Col style={{ margin: '1.5rem' }}>
             <p style={{ fontSize: 24 }}>Library Address:</p>
