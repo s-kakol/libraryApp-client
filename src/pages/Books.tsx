@@ -2,13 +2,14 @@ import { useEffect, useState } from 'react';
 import { CardGroup, Col, Container, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import BookCard from '../components/book/BookCard';
+import { createSubArray } from '../utilities/bookSubArray';
 import bookService from '../utilities/services/books';
 import Book from '../utilities/types/book.type';
 
 const Books = (): JSX.Element => {
   const genre = useParams().genre || null;
   const [books, setBooks] = useState<Book[]>([]);
-  const subArraySize = 5;
+  const bookGroups = createSubArray(books, 5);
 
   const initBooksList = async () => {
     let booksList;
@@ -23,13 +24,6 @@ const Books = (): JSX.Element => {
   useEffect(() => {
     initBooksList();
   }, [genre]);
-
-  const subArray = (arr: Book[], size: number): Book[][] =>
-    [...Array(Math.ceil(arr.length / size))].map((_, i) =>
-      arr.slice(size * i, size + size * i)
-    );
-
-  const bookGroups = subArray(books, subArraySize);
 
   return (
     <Container>
