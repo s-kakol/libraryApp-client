@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Navbar from './components/Navbar';
 import NotFound from './pages/NotFound';
 import BookDetails from './pages/BookDetails';
+import Footer from './components/Footer';
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Container>
+      <Footer />
     </>
   );
 };
