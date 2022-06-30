@@ -1,6 +1,6 @@
 import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
-import Book from '../utilities/types/book.type';
+import Book from '../../utilities/types/book.type';
 
 type BookCardProps = {
   book: Book;
