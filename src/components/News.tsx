@@ -16,7 +16,7 @@ const News = ({ details }: NewsProps): JSX.Element => {
       <div>
         <h2 style={{ float: 'left' }}>{details.title}</h2>
         <h4 style={{ float: 'right', fontStyle: 'italic' }}>
-          {date.toLocaleDateString('en-US')}
+          {date.toLocaleDateString('en-GB')}
         </h4>
       </div>
       <p style={{ clear: 'both' }}>{details.content}</p>
