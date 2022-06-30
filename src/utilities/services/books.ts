@@ -20,4 +20,13 @@ const getMostPopular = async (length?: number): Promise<Book[]> => {
   return await result;
 };
 
-export default { getAll, getMostPopular };
+const getOneById = async (id: string): Promise<Book | any> => {
+  try {
+    const response = await axios.get(`${baseUrl}/${id}`);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export default { getAll, getMostPopular, getOneById };
