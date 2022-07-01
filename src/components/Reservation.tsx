@@ -1,6 +1,11 @@
+import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import Stack from 'react-bootstrap/Stack';
-import { toggleReservation } from '../context/reducers/reservationReducer';
+import {
+  clearReservation,
+  toggleReservation,
+} from '../context/reducers/reservationReducer';
 import { useAppDispatch, useAppSelector } from '../context/store';
 
 const Reservation = (): JSX.Element => {
@@ -17,9 +22,36 @@ const Reservation = (): JSX.Element => {
         <Offcanvas.Title>Reservation</Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body>
-        <Stack gap={2}>
+        <Button
+          variant="outline-dark"
+          style={{ marginBottom: '2rem' }}
+          onClick={() => console.log('confirm')}
+        >
+          Confirm
+        </Button>
+        <Stack className="d-flex" direction="vertical" gap={2}>
           {reservation.books.map(book => (
-            <p key={book.id}>{book.title}</p>
+            <div
+              key={book.id}
+              style={{
+                paddingBottom: 10,
+                borderBottom: '1px solid grey',
+              }}
+            >
+              <Col>
+                <div style={{ fontWeight: 600 }}>{book.title}</div>
+                <span style={{ fontStyle: 'italic' }}>by {book.author}</span>
+              </Col>
+              <Col style={{ display: 'flex', justifyContent: 'right' }}>
+                <Button
+                  variant="outline-danger"
+                  size="sm"
+                  onClick={() => appDispatch(clearReservation(book.id))}
+                >
+                  X
+                </Button>
+              </Col>
+            </div>
           ))}
         </Stack>
       </Offcanvas.Body>
