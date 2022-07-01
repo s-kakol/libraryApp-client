@@ -1,4 +1,5 @@
 import userReducer from './reducers/userReducer';
+import reservationReducer from './reducers/reservationReducer';
 import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -7,6 +8,7 @@ import { useDispatch } from 'react-redux';
 const store = configureStore({
   reducer: {
     user: userReducer,
+    reservation: reservationReducer,
   },
 });
 
