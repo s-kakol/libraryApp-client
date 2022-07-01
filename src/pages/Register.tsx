@@ -75,7 +75,7 @@ const Register = (): JSX.Element => {
 
           <Form.Group className="mb-3" controlId="email">
             <Form.Label>
-              <strong>Email</strong> address
+              <strong>Email address</strong>
             </Form.Label>
             <Form.Control
               type="email"
