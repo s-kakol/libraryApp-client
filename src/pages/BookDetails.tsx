@@ -79,10 +79,18 @@ const BookDetails = (): JSX.Element => {
   };
 
   const renderReservationBtns = (): JSX.Element => {
-    return !reservation.books.includes(book.id) ? (
+    return !reservation.books.find(b => b.id === book.id) ? (
       <Button
         variant="secondary"
-        onClick={() => appDispatch(setReservation(book.id))}
+        onClick={() =>
+          appDispatch(
+            setReservation({
+              id: book.id,
+              title: book.title,
+              author: book.author,
+            })
+          )
+        }
       >
         Add
       </Button>

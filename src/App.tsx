@@ -11,10 +11,12 @@ import Footer from './components/Footer';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
+import Reservation from './components/Reservation';
 
 const App = () => (
   <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
     <Navbar />
+    <Reservation />
     <Container className="mb-4">
       <Routes>
         <Route path="/" element={<Home />} />

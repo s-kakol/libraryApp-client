@@ -7,6 +7,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Genre } from '../utilities/types/book.type';
 import { useAppDispatch, useAppSelector } from '../context/store';
 import { signOut } from '../context/reducers/userReducer';
+import { toggleReservation } from '../context/reducers/reservationReducer';
 
 const genres = Object.values(Genre) as unknown as Array<keyof typeof Genre>;
 
@@ -22,7 +23,7 @@ const Navbar = (): JSX.Element => {
     return (
       <>
         <Button
-          onClick={() => console.log('open')}
+          onClick={() => appDispatch(toggleReservation())}
           variant="outline-dark"
           style={{ marginLeft: '0.5rem' }}
           className="rounded"
