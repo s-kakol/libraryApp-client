@@ -3,6 +3,7 @@ import { CardGroup, Col, Container, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import BookCard from '../components/book/BookCard';
 import Pagination from '../components/Pagination';
+import SortingDropdown from '../components/SortingDropdown';
 import { createSubArray } from '../utilities/bookSubArray';
 import bookService from '../utilities/services/books';
 import Book from '../utilities/types/book.type';
@@ -45,8 +46,20 @@ const Books = (): JSX.Element => {
     setItemOffset(newOffset);
   };
 
+  const renderHeader = (): JSX.Element => {
+    return (
+      <h1>
+        {genre ? genre : 'Total'} {` - ${books.length} results`}
+      </h1>
+    );
+  };
+
   return (
     <Container>
+      <Row>
+        {renderHeader()}
+        <SortingDropdown />
+      </Row>
       {bookGroups.map((booksSubGroup, i) => (
         <Row key={i}>
           <Col>
@@ -58,7 +71,9 @@ const Books = (): JSX.Element => {
           </Col>
         </Row>
       ))}
-      <Pagination handler={handlePageClick} pageCount={pageCount} />
+      {pageCount > 1 ? (
+        <Pagination handler={handlePageClick} pageCount={pageCount} />
+      ) : null}
     </Container>
   );
 };
