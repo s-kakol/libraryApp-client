@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { CardGroup, Col, Container, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import BookCard from '../components/book/BookCard';
+import Pagination from '../components/Pagination';
 import { createSubArray } from '../utilities/bookSubArray';
 import bookService from '../utilities/services/books';
 import Book from '../utilities/types/book.type';
@@ -9,7 +10,11 @@ import Book from '../utilities/types/book.type';
 const Books = (): JSX.Element => {
   const genre = useParams().genre || null;
   const [books, setBooks] = useState<Book[]>([]);
-  const bookGroups = createSubArray(books, 5);
+  const [currentBooks, setCurrentBooks] = useState<Book[]>([]);
+  const [pageCount, setPageCount] = useState<number>(0);
+  const [itemOffset, setItemOffset] = useState<number>(0);
+  const bookGroups = createSubArray(currentBooks, 5);
+  const limit = 10;
 
   const initBooksList = async () => {
     let booksList;
@@ -22,8 +27,23 @@ const Books = (): JSX.Element => {
   };
 
   useEffect(() => {
-    initBooksList();
+    setItemOffset(0);
   }, [genre]);
+
+  useEffect(() => {
+    initBooksList();
+    const endOffset = itemOffset + limit;
+    setCurrentBooks(books.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(books.length / limit));
+  }, [genre, itemOffset, books]);
+
+  const handlePageClick = (event: { selected: number }) => {
+    const newOffset = (event.selected * limit) % books.length;
+    console.log(
+      `User requested page number ${event.selected}, which is offset ${newOffset}`
+    );
+    setItemOffset(newOffset);
+  };
 
   return (
     <Container>
@@ -38,6 +58,7 @@ const Books = (): JSX.Element => {
           </Col>
         </Row>
       ))}
+      <Pagination handler={handlePageClick} pageCount={pageCount} />
     </Container>
   );
 };
