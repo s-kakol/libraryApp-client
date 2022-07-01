@@ -28,21 +28,21 @@ const Books = (): JSX.Element => {
   };
 
   useEffect(() => {
+    initBooksList();
     setItemOffset(0);
   }, [genre]);
 
   useEffect(() => {
-    initBooksList();
     const endOffset = itemOffset + limit;
     setCurrentBooks(books.slice(itemOffset, endOffset));
     setPageCount(Math.ceil(books.length / limit));
-  }, [genre, itemOffset, books]);
+  }, [itemOffset, books, genre]);
 
   const handlePageClick = (event: { selected: number }) => {
+    console.log(event.selected);
+    console.log(itemOffset);
     const newOffset = (event.selected * limit) % books.length;
-    console.log(
-      `User requested page number ${event.selected}, which is offset ${newOffset}`
-    );
+    console.log(newOffset);
     setItemOffset(newOffset);
   };
 
