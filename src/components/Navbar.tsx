@@ -27,7 +27,11 @@ const Navbar = (): JSX.Element => {
             Show profile
           </NavDropdown.Item>
           <NavDropdown.Item>Edit profile</NavDropdown.Item>
-          <NavDropdown.Item onClick={() => appDispatch(signOut())}>
+          <NavDropdown.Item
+            as={NavLink}
+            to={'/'}
+            onClick={() => appDispatch(signOut())}
+          >
             Sign out
           </NavDropdown.Item>
         </NavDropdown>
