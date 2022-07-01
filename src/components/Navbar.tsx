@@ -18,6 +18,14 @@ const Navbar = (): JSX.Element => {
   const signedInNavbar = (): JSX.Element => {
     return (
       <>
+        <Button
+          onClick={() => console.log('open')}
+          variant="outline-dark"
+          style={{ marginLeft: '0.5rem' }}
+          className="rounded"
+        >
+          Reservation (3)
+        </Button>
         <NavDropdown
           align="end"
           title={user.userName}
@@ -63,40 +71,43 @@ const Navbar = (): JSX.Element => {
   };
 
   return (
-    <NavbarBs sticky="top" className="bg-white shadow-sm mb-3">
+    <NavbarBs sticky="top" className="bg-white shadow-sm mb-3" expand="lg">
       <Container>
-        <Nav className="me-auto">
-          <Nav.Link as={NavLink} to={'/'}>
-            Home
-          </Nav.Link>
-          <NavDropdown title="Books">
-            <NavDropdown.Item as={NavLink} to={'/books'}>
-              All
-            </NavDropdown.Item>
-            <NavDropdown.Divider />
-            {genres.map(genre => {
-              return (
-                <NavDropdown.Item
-                  key={genre}
-                  as={NavLink}
-                  to={`/books/${genre}`}
-                >
-                  {String(genre)}
-                </NavDropdown.Item>
-              );
-            })}
-          </NavDropdown>
-          <Nav.Link as={NavLink} to={'/contact'}>
-            Contact
-          </Nav.Link>
-          <Nav.Link as={NavLink} to={'/about'}>
-            About
-          </Nav.Link>
-        </Nav>
-        <Button variant="outline-dark" className="rounded">
-          Search
-        </Button>
-        {user.isLoggedIn ? signedInNavbar() : defaultNavbar()}
+        <NavbarBs.Toggle aria-controls="navbar-nav" />
+        <NavbarBs.Collapse id="navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link as={NavLink} to={'/'}>
+              Home
+            </Nav.Link>
+            <NavDropdown title="Books">
+              <NavDropdown.Item as={NavLink} to={'/books'}>
+                All
+              </NavDropdown.Item>
+              <NavDropdown.Divider />
+              {genres.map(genre => {
+                return (
+                  <NavDropdown.Item
+                    key={genre}
+                    as={NavLink}
+                    to={`/books/${genre}`}
+                  >
+                    {String(genre)}
+                  </NavDropdown.Item>
+                );
+              })}
+            </NavDropdown>
+            <Nav.Link as={NavLink} to={'/contact'}>
+              Contact
+            </Nav.Link>
+            <Nav.Link as={NavLink} to={'/about'}>
+              About
+            </Nav.Link>
+          </Nav>
+          <Button variant="outline-dark" className="rounded">
+            Search
+          </Button>
+          {user.isLoggedIn ? signedInNavbar() : defaultNavbar()}
+        </NavbarBs.Collapse>
       </Container>
     </NavbarBs>
   );

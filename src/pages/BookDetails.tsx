@@ -50,6 +50,7 @@ const BookDetails = (): JSX.Element => {
 
   const imgStyle = {
     borderRadius: 12,
+    width: '50%',
     maxWidth: '25rem',
     height: 'auto',
     display: 'block',
@@ -81,7 +82,7 @@ const BookDetails = (): JSX.Element => {
     return (
       <Container>
         <Row style={{ margin: '3rem auto' }}>
-          <Col>
+          <Col md="auto">
             <Image fluid={true} src={book.coverImgUrl} style={imgStyle} />
           </Col>
           <Col>
