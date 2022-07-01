@@ -7,6 +7,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ReviewsList from '../components/ReviewsList';
+import ReservationsList from '../components/ReservationsList';
 
 const emptyUser = {
   username: '',
@@ -79,7 +80,18 @@ const Profile = (): JSX.Element => {
               )}
             </Col>
           </Row>
-          <Row></Row>
+          <Row>
+            <Col>
+              {user.reservations.length > 0 ? (
+                <>
+                  <h3 style={{ textAlign: 'left' }}>Reservations:</h3>
+                  <ReservationsList reservations={user.reservations} />
+                </>
+              ) : (
+                <h3 style={{ textAlign: 'left' }}>No reservations</h3>
+              )}
+            </Col>
+          </Row>
         </Container>
       )}
     </>
