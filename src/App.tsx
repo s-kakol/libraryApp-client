@@ -10,6 +10,7 @@ import BookDetails from './pages/BookDetails';
 import Footer from './components/Footer';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Profile from './pages/Profile';
 
 const App = () => (
   <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
@@ -22,6 +23,7 @@ const App = () => (
         <Route path="/book/:id" element={<BookDetails />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/profile/:id" element={<Profile />} />
         <Route path="/login" element={<Login />} />
         <Route path="/join" element={<Register />} />
         <Route path="*" element={<NotFound />} />
