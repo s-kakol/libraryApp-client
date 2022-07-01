@@ -3,13 +3,37 @@ import getErrorMessage from '../errorHandler';
 import Book from '../types/book.type';
 const baseUrl = 'http://localhost:3001/books';
 
-const getAll = async (): Promise<Book[]> => {
-  const response = await axios.get(baseUrl);
+const checkForQueryParams = (
+  page: number | undefined,
+  limit: number | undefined
+) => {
+  if (page != undefined && limit != undefined) {
+    return true;
+  }
+  return false;
+};
+
+const getAll = async (page?: number, limit?: number): Promise<Book[]> => {
+  let response;
+  checkForQueryParams(page, limit)
+    ? (response = await axios.get(`${baseUrl}/?page=${page}&limit=${limit}`))
+    : (response = await axios.get(baseUrl));
+
   return response.data;
 };
 
-const getAllByGenre = async (genre: string): Promise<Book[]> => {
-  const response = await axios.get(`${baseUrl}/genre/${genre}`);
+const getAllByGenre = async (
+  genre: string,
+  page?: number,
+  limit?: number
+): Promise<Book[]> => {
+  let response;
+  checkForQueryParams(page, limit)
+    ? (response = await axios.get(
+        `${baseUrl}/genre/${genre}?page=${page}&limit=${limit}`
+      ))
+    : (response = await axios.get(`${baseUrl}/genre/${genre}`));
+
   return response.data;
 };
 
