@@ -10,13 +10,15 @@ type ReviewItemProps = {
 };
 
 const ReviewsList = ({ review }: ReviewItemProps): JSX.Element => {
+  const authorOrTitle = review.authorName || review.reviewedBookTitle;
+
   return (
     <Container style={{ margin: '1rem', fontSize: 24 }}>
       <Row>
-        <Col>
+        <Col xs={9}>
           <BiUserCircle size={30} />
           <span style={{ color: '#2f2f2f', fontStyle: 'italic' }}>
-            {` ${review.authorName}`} -
+            <strong>{` ${authorOrTitle}`}</strong> -
           </span>
           {` ${review.content}`}
         </Col>

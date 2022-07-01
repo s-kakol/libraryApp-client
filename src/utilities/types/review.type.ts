@@ -1,5 +1,6 @@
 type Review = {
-  authorName: string;
+  authorName?: string;
+  reviewedBookTitle?: string;
   content: string;
   id: string;
   rating: number;
