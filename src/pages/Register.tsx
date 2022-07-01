@@ -4,35 +4,137 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
 import './Login.scss';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
 const Register = (): JSX.Element => {
+  const errorStyle = {
+    color: '#ce2649',
+  };
+
+  const formik = useFormik({
+    initialValues: {
+      username: '',
+      email: '',
+      password: '',
+      firstName: '',
+      lastName: '',
+    },
+    onSubmit: values => {
+      console.log(values);
+    },
+    validationSchema: Yup.object({
+      username: Yup.string()
+        .max(64, 'Username too long')
+        .required('Please enter username'),
+      email: Yup.string()
+        .email('Invalid email address')
+        .max(320, 'Email is too long')
+        .required('Please enter email'),
+      password: Yup.string()
+        .min(6, 'Password must be min 6 characters')
+        .max(128, 'Password is too long')
+        .matches(
+          /^(?=.*?[A-Z])/,
+          'Password must contain at least one uppercase letter'
+        )
+        .matches(
+          /^(?=.*?[a-z])/,
+          'Password must contain at least one lowercase letter'
+        )
+        .matches(/^(?=.*?[0-9])/, 'Password must contain at least one number')
+        .required('Please enter password'),
+      firstName: Yup.string()
+        .max(64, 'Name too long')
+        .required('Please enter first name'),
+      lastName: Yup.string()
+        .max(64, 'Surname too long')
+        .required('Please enter last name'),
+    }),
+  });
+
   return (
     <Container style={{ maxWidth: '50vh', padding: '3rem' }}>
       <Row>
-        <Form>
-          <Form.Group className="mb-3" controlId="registerUserName">
-            <Form.Label>Username</Form.Label>
-            <Form.Control type="text" placeholder="Enter your username" />
+        <Form noValidate onSubmit={formik.handleSubmit}>
+          <Form.Group className="mb-3" controlId="username">
+            <Form.Label>
+              <strong>Username</strong>
+            </Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter username"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.username}
+            />
+            {formik.touched.username && formik.errors.username ? (
+              <p style={errorStyle}>{formik.errors.username}</p>
+            ) : null}
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="registerEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" />
+          <Form.Group className="mb-3" controlId="email">
+            <Form.Label>
+              <strong>Email</strong> address
+            </Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="Enter email"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.email}
+            />
+            {formik.touched.email && formik.errors.email ? (
+              <p style={errorStyle}>{formik.errors.email}</p>
+            ) : null}
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="registerPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" />
+          <Form.Group className="mb-3" controlId="password">
+            <Form.Label>
+              <strong>Password</strong>
+            </Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.password}
+            />
+            {formik.touched.password && formik.errors.password ? (
+              <p style={errorStyle}>{formik.errors.password}</p>
+            ) : null}
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="registerFirstName">
-            <Form.Label>First Name</Form.Label>
-            <Form.Control type="text" placeholder="First Name" />
+          <Form.Group className="mb-3" controlId="firstName">
+            <Form.Label>
+              <strong>First Name</strong>
+            </Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="First Name"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.firstName}
+            />
+            {formik.touched.firstName && formik.errors.firstName ? (
+              <p style={errorStyle}>{formik.errors.firstName}</p>
+            ) : null}
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="registerLastName">
-            <Form.Label>Last Name</Form.Label>
-            <Form.Control type="text" placeholder="Last name" />
+          <Form.Group className="mb-3" controlId="lastName">
+            <Form.Label>
+              <strong>Last Name</strong>
+            </Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Last name"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.lastName}
+            />
+            {formik.touched.lastName && formik.errors.lastName ? (
+              <p style={errorStyle}>{formik.errors.lastName}</p>
+            ) : null}
           </Form.Group>
 
           <Row>
