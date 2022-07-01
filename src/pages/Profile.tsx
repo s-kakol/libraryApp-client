@@ -62,7 +62,10 @@ const Profile = (): JSX.Element => {
                 <strong>Email:</strong> {user.email}
               </p>
               <p>
-                <strong>Member since:</strong> {Date.parse(user.createdAt)}
+                <strong>Member since:</strong>{' '}
+                {new Date(Date.parse(user.createdAt)).toLocaleDateString(
+                  'en-GB'
+                )}
               </p>
             </Col>
             <Col>
