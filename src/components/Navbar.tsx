@@ -106,6 +106,9 @@ const Navbar = (): JSX.Element => {
             <Nav.Link as={NavLink} to={'/about'}>
               About
             </Nav.Link>
+            <Nav.Link as={NavLink} to={'/stats'}>
+              Statistics
+            </Nav.Link>
           </Nav>
           <Button variant="outline-dark" className="rounded">
             Search

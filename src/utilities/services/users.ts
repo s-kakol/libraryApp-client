@@ -13,6 +13,11 @@ type NewUser = {
   reservations?: [];
 };
 
+const getAll = async (): Promise<User[]> => {
+  const response = await axios.get(`${baseUrl}/users`);
+  return response.data;
+};
+
 const register = async (data: NewUser): Promise<void> => {
   const newUser = { ...data, role: 'user', reviews: [], reservations: [] };
   const response = await axios.post(`${baseUrl}/auth/register`, newUser);
@@ -29,4 +34,4 @@ const getByEmail = async (email: string): Promise<User> => {
   return response.data;
 };
 
-export default { register, getById, getByEmail };
+export default { getAll, register, getById, getByEmail };
