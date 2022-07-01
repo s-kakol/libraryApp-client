@@ -39,10 +39,7 @@ const Books = (): JSX.Element => {
   }, [itemOffset, books, genre]);
 
   const handlePageClick = (event: { selected: number }) => {
-    console.log(event.selected);
-    console.log(itemOffset);
     const newOffset = (event.selected * limit) % books.length;
-    console.log(newOffset);
     setItemOffset(newOffset);
   };
 
