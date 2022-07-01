@@ -20,18 +20,18 @@ const Login = (): JSX.Element => {
 
   const formik = useFormik({
     initialValues: {
-      loginEmail: '',
-      loginPassword: '',
+      email: '',
+      password: '',
     },
     onSubmit: values => {
       console.log(values);
     },
     validationSchema: Yup.object({
-      loginEmail: Yup.string()
+      email: Yup.string()
         .email('Invalid email address')
         .max(320, 'Email is too long')
         .required('Please enter email'),
-      loginPassword: Yup.string()
+      password: Yup.string()
         .max(128, 'Password is too long')
         .required('Please enter password'),
     }),
@@ -41,7 +41,7 @@ const Login = (): JSX.Element => {
     <Container style={{ maxWidth: '50vh', padding: '3rem' }}>
       <Row>
         <Form noValidate onSubmit={formik.handleSubmit}>
-          <Form.Group className="mb-3" controlId="loginEmail">
+          <Form.Group className="mb-3" controlId="email">
             <Form.Label>
               <strong>Email address</strong>
             </Form.Label>
@@ -50,14 +50,14 @@ const Login = (): JSX.Element => {
               placeholder="Enter email"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.loginEmail}
+              value={formik.values.email}
             />
-            {formik.touched.loginEmail && formik.errors.loginEmail ? (
-              <p style={errorStyle}>{formik.errors.loginEmail}</p>
+            {formik.touched.email && formik.errors.email ? (
+              <p style={errorStyle}>{formik.errors.email}</p>
             ) : null}
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="loginPassword">
+          <Form.Group className="mb-3" controlId="password">
             <Form.Label>
               <strong>Password</strong>
             </Form.Label>
@@ -66,10 +66,10 @@ const Login = (): JSX.Element => {
               placeholder="Password"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.loginPassword}
+              value={formik.values.password}
             />
-            {formik.touched.loginPassword && formik.errors.loginPassword ? (
-              <p style={errorStyle}>{formik.errors.loginPassword}</p>
+            {formik.touched.password && formik.errors.password ? (
+              <p style={errorStyle}>{formik.errors.password}</p>
             ) : null}
           </Form.Group>
           <Row>
