@@ -48,9 +48,11 @@ const Books = (): JSX.Element => {
 
   const renderHeader = (): JSX.Element => {
     return (
-      <h1>
-        {genre ? genre : 'Total'} {` - ${books.length} results`}
-      </h1>
+      <Col>
+        <h1>
+          {genre ? genre : 'Total'} {` - ${books.length} results`}
+        </h1>
+      </Col>
     );
   };
 
