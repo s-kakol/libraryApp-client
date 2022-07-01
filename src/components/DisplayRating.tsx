@@ -6,7 +6,7 @@ type DisplayRatingProps = {
 
 const DisplayRating = ({ rating }: DisplayRatingProps): JSX.Element => {
   return (
-    <>
+    <div style={{ float: 'right' }}>
       {[...Array(5)].map((star, i) => {
         return (
           <FaStar
@@ -17,7 +17,7 @@ const DisplayRating = ({ rating }: DisplayRatingProps): JSX.Element => {
           />
         );
       })}
-    </>
+    </div>
   );
 };
 
