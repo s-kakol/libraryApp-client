@@ -6,8 +6,13 @@ import Form from 'react-bootstrap/Form';
 import './Login.scss';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import userService from '../utilities/services/users';
+import { useState } from 'react';
 
 const Register = (): JSX.Element => {
+  const defaultError = 'Something went wrong.';
+  const [isError, setIsError] = useState<boolean>(false);
+  const [errorMsg, setErrorMsg] = useState<string>(defaultError);
   const errorStyle = {
     color: '#ce2649',
   };
@@ -20,8 +25,19 @@ const Register = (): JSX.Element => {
       firstName: '',
       lastName: '',
     },
-    onSubmit: values => {
-      console.log(values);
+    onSubmit: async values => {
+      try {
+        await userService.register(values);
+      } catch (exception: any) {
+        if (exception.response.data.message != undefined) {
+          setErrorMsg(exception.response.data.message);
+        }
+        setIsError(true);
+        setTimeout(() => {
+          setIsError(false);
+          setErrorMsg(defaultError);
+        }, 5000);
+      }
     },
     validationSchema: Yup.object({
       username: Yup.string()
@@ -135,6 +151,7 @@ const Register = (): JSX.Element => {
             {formik.touched.lastName && formik.errors.lastName ? (
               <p style={errorStyle}>{formik.errors.lastName}</p>
             ) : null}
+            {isError ? <p style={errorStyle}>{errorMsg}</p> : null}
           </Form.Group>
 
           <Row>
