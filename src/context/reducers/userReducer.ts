@@ -8,10 +8,10 @@ type UserType = {
 };
 
 const initialState = {
-  isLoggedIn: false,
-  token: '',
-  userName: '',
-  userId: '',
+  isLoggedIn: Boolean(window.localStorage.getItem('libUserIsLogged')),
+  token: window.localStorage.getItem('libUserToken'),
+  userName: window.localStorage.getItem('libUserName'),
+  userId: window.localStorage.getItem('libUserId'),
 } as UserType;
 
 const userSlice = createSlice({
@@ -20,16 +20,26 @@ const userSlice = createSlice({
   reducers: {
     signIn(state, action: PayloadAction<UserType>) {
       const { isLoggedIn, token, userName, userId } = { ...action.payload };
+      window.localStorage.setItem('libUserIsLogged', String(isLoggedIn));
+      window.localStorage.setItem('libUserToken', token);
+      window.localStorage.setItem('libUserName', userName);
+      window.localStorage.setItem('libUserId', userId);
       state.isLoggedIn = isLoggedIn;
       state.token = token;
       state.userName = userName;
       state.userId = userId;
     },
     signOut(state) {
-      state.isLoggedIn = false;
-      state.token = '';
-      state.userName = '';
-      state.userId = '';
+      window.localStorage.removeItem('libUserIsLogged');
+      window.localStorage.removeItem('libUserToken');
+      window.localStorage.removeItem('libUserName');
+      window.localStorage.removeItem('libUserId');
+      state.isLoggedIn = Boolean(
+        window.localStorage.getItem('libUserIsLogged')
+      );
+      state.token = window.localStorage.getItem('libUserToken') || '';
+      state.userName = window.localStorage.getItem('libUserName') || '';
+      state.userId = window.localStorage.getItem('libUserId') || '';
     },
   },
 });
