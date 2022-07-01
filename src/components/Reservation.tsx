@@ -4,13 +4,33 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import Stack from 'react-bootstrap/Stack';
 import {
   clearReservation,
+  resetReservation,
   toggleReservation,
 } from '../context/reducers/reservationReducer';
 import { useAppDispatch, useAppSelector } from '../context/store';
+import reservationService from '../utilities/services/reservation';
 
 const Reservation = (): JSX.Element => {
   const appDispatch = useAppDispatch();
   const reservation = useAppSelector(state => state.reservation);
+  const userId = useAppSelector(state => state.user.userId);
+
+  const handleConfirm = async () => {
+    const newReview = {
+      borrower: userId,
+      books: reservation.books.map(book => book.id),
+      status: 'CONFIRMED',
+      deadline: new Date(
+        new Date().setDate(new Date().getDate() + 14)
+      ).toISOString(),
+    };
+    try {
+      await reservationService.addReview(newReview);
+      appDispatch(resetReservation());
+    } catch (err: any) {
+      throw new Error(err);
+    }
+  };
 
   return (
     <Offcanvas
@@ -25,7 +45,7 @@ const Reservation = (): JSX.Element => {
         <Button
           variant="outline-dark"
           style={{ marginBottom: '2rem' }}
-          onClick={() => console.log('confirm')}
+          onClick={handleConfirm}
         >
           Confirm
         </Button>

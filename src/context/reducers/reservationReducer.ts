@@ -30,12 +30,21 @@ const reservationSlice = createSlice({
       state.books = state.books.filter(book => book.id != action.payload);
       state.quantity--;
     },
+    resetReservation(state) {
+      state.quantity = 0;
+      state.books = [];
+      state.isOpen = false;
+    },
     toggleReservation(state) {
       state.isOpen = !state.isOpen;
     },
   },
 });
 
-export const { setReservation, clearReservation, toggleReservation } =
-  reservationSlice.actions;
+export const {
+  setReservation,
+  clearReservation,
+  resetReservation,
+  toggleReservation,
+} = reservationSlice.actions;
 export default reservationSlice.reducer;
