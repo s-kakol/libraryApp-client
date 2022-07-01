@@ -9,9 +9,15 @@ const Footer = (): JSX.Element => {
     textDecoration: 'none',
     color: 'inherit',
   };
+  const footerStyle = {
+    backgroundColor: '#2E2E2E',
+    color: '#CCCCCC',
+    fontSize: 18,
+    marginTop: 'auto',
+  };
 
   return (
-    <div style={{ backgroundColor: '#2E2E2E', color: '#CCCCCC', fontSize: 18 }}>
+    <div style={footerStyle}>
       <Container>
         <Row>
           <Col style={{ margin: '1.5rem' }}>

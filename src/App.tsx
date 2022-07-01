@@ -12,7 +12,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 
 const App = () => (
-  <>
+  <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
     <Navbar />
     <Container className="mb-4">
       <Routes>
@@ -28,7 +28,7 @@ const App = () => (
       </Routes>
     </Container>
     <Footer />
-  </>
+  </div>
 );
 
 export default App;
