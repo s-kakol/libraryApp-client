@@ -11,10 +11,12 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import loginService from '../utilities/services/login';
 import bookService from '../utilities/services/books';
+import { useNavigate } from 'react-router-dom';
 
 const Login = (): JSX.Element => {
   const [show, setShow] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
+  const navigate = useNavigate();
   const target = useRef(null);
 
   const errorStyle = {
@@ -34,6 +36,7 @@ const Login = (): JSX.Element => {
           JSON.stringify(loggedUser)
         );
         bookService.setToken(loggedUser.token);
+        navigate('/');
       } catch (exception) {
         setIsError(true);
         setTimeout(() => {

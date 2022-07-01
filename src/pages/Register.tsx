@@ -8,11 +8,13 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import userService from '../utilities/services/users';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Register = (): JSX.Element => {
   const defaultError = 'Something went wrong.';
   const [isError, setIsError] = useState<boolean>(false);
   const [errorMsg, setErrorMsg] = useState<string>(defaultError);
+  const navigate = useNavigate();
   const errorStyle = {
     color: '#ce2649',
   };
@@ -28,6 +30,7 @@ const Register = (): JSX.Element => {
     onSubmit: async values => {
       try {
         await userService.register(values);
+        navigate('/login');
       } catch (exception: any) {
         if (exception.response.data.message != undefined) {
           setErrorMsg(exception.response.data.message);
