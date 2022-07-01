@@ -10,6 +10,12 @@ import Image from 'react-bootstrap/Image';
 import BookDetailsTable from '../components/book/BookDetailsTable';
 import ReviewsList from '../components/ReviewsList';
 import DisplayRating from '../components/DisplayRating';
+import Button from 'react-bootstrap/Button';
+import {
+  setReservation,
+  clearReservation,
+} from '../context/reducers/reservationReducer';
+import { useAppSelector, useAppDispatch } from '../context/store';
 
 const emptyBook = {
   author: '',
@@ -34,6 +40,9 @@ const BookDetails = (): JSX.Element => {
   const id = useParams().id || '';
   const [book, setBook] = useState<Book>(emptyBook);
   const [error, setError] = useState<boolean>(false);
+  const isLoggedIn = useAppSelector(state => state.user.isLoggedIn);
+  const reservation = useAppSelector(state => state.reservation);
+  const appDispatch = useAppDispatch();
 
   const initBookDetails = async (id: string) => {
     try {
@@ -67,6 +76,24 @@ const BookDetails = (): JSX.Element => {
     padding: '1rem 2rem',
     margin: '1rem',
     textAlign: 'justify' as const,
+  };
+
+  const renderReservationBtns = (): JSX.Element => {
+    return !reservation.books.includes(book.id) ? (
+      <Button
+        variant="secondary"
+        onClick={() => appDispatch(setReservation(book.id))}
+      >
+        Add
+      </Button>
+    ) : (
+      <Button
+        variant="danger"
+        onClick={() => appDispatch(clearReservation(book.id))}
+      >
+        Remove
+      </Button>
+    );
   };
 
   const renderReviews = (): JSX.Element => {
@@ -109,6 +136,7 @@ const BookDetails = (): JSX.Element => {
                 </div>
               </Col>
             </Row>
+            {isLoggedIn && renderReservationBtns()}
             <Col style={descStyle}>{book.description}</Col>
           </Col>
         </Row>
