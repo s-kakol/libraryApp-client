@@ -19,9 +19,14 @@ const register = async (data: NewUser): Promise<void> => {
   return response.data;
 };
 
-const findByEmail = async (email: string): Promise<User> => {
+const getById = async (id: string): Promise<User> => {
+  const response = await axios.get(`${baseUrl}/users/${id}`);
+  return response.data;
+};
+
+const getByEmail = async (email: string): Promise<User> => {
   const response = await axios.get(`${baseUrl}/users/em/${email}`);
   return response.data;
 };
 
-export default { register, findByEmail };
+export default { register, getById, getByEmail };

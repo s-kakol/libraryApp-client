@@ -34,7 +34,7 @@ const Login = (): JSX.Element => {
     onSubmit: async values => {
       try {
         const loggedUser = await loginService.login(values);
-        const userData = await userService.findByEmail(values.email);
+        const userData = await userService.getByEmail(values.email);
         window.localStorage.setItem(
           'loggedLibraryUser',
           JSON.stringify(loggedUser)
