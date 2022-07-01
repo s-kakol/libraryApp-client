@@ -14,6 +14,9 @@ const Navbar = (): JSX.Element => {
   const navigateButton = useNavigate();
   const appDispatch = useAppDispatch();
   const user = useAppSelector(state => state.user);
+  const booksInReservation = useAppSelector(
+    state => state.reservation.quantity
+  );
 
   const signedInNavbar = (): JSX.Element => {
     return (
@@ -24,7 +27,7 @@ const Navbar = (): JSX.Element => {
           style={{ marginLeft: '0.5rem' }}
           className="rounded"
         >
-          Reservation (3)
+          Reservation {booksInReservation > 0 && <>({booksInReservation})</>}
         </Button>
         <NavDropdown
           align="end"
