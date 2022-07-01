@@ -1,4 +1,5 @@
 import axios from 'axios';
+import User from '../types/user.type';
 const baseUrl = 'http://localhost:3001';
 
 type NewUser = {
@@ -12,10 +13,15 @@ type NewUser = {
   reservations?: [];
 };
 
-const register = async (data: NewUser) => {
+const register = async (data: NewUser): Promise<void> => {
   const newUser = { ...data, role: 'user', reviews: [], reservations: [] };
   const response = await axios.post(`${baseUrl}/auth/register`, newUser);
   return response.data;
 };
 
-export default { register };
+const findByEmail = async (email: string): Promise<User> => {
+  const response = await axios.get(`${baseUrl}/users/em/${email}`);
+  return response.data;
+};
+
+export default { register, findByEmail };

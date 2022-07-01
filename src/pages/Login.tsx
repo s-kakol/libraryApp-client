@@ -10,13 +10,16 @@ import { useRef, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import loginService from '../utilities/services/login';
-import bookService from '../utilities/services/books';
+import userService from '../utilities/services/users';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../context/store';
+import { signIn } from '../context/reducers/userReducer';
 
 const Login = (): JSX.Element => {
   const [show, setShow] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
   const navigate = useNavigate();
+  const appDispatch = useAppDispatch();
   const target = useRef(null);
 
   const errorStyle = {
@@ -31,11 +34,19 @@ const Login = (): JSX.Element => {
     onSubmit: async values => {
       try {
         const loggedUser = await loginService.login(values);
+        const userData = await userService.findByEmail(values.email);
         window.localStorage.setItem(
           'loggedLibraryUser',
           JSON.stringify(loggedUser)
         );
-        bookService.setToken(loggedUser.token);
+        appDispatch(
+          signIn({
+            isLoggedIn: true,
+            token: loggedUser.token,
+            userName: userData.username,
+            userId: userData.id,
+          })
+        );
         navigate('/');
       } catch (exception) {
         setIsError(true);
