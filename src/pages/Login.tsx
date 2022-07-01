@@ -27,7 +27,6 @@ const Login = (): JSX.Element => {
       password: '',
     },
     onSubmit: async values => {
-      console.log(values);
       try {
         const loggedUser = await loginService.login(values);
         window.localStorage.setItem(
