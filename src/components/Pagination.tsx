@@ -1,4 +1,5 @@
 import ReactPaginate from 'react-paginate';
+import './Pagination.scss';
 
 type PaginationProps = {
   handler: (event: { selected: number }) => void;
@@ -15,6 +16,11 @@ const Pagination = ({ handler, pageCount }: PaginationProps): JSX.Element => {
       pageRangeDisplayed={4}
       pageCount={pageCount}
       renderOnZeroPageCount={void null}
+      containerClassName="pagination"
+      pageLinkClassName="page-num"
+      previousLinkClassName="page-num"
+      nextLinkClassName="page-num"
+      activeLinkClassName="active"
     />
   );
 };
