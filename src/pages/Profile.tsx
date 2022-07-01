@@ -3,6 +3,10 @@ import { useNavigate, useParams } from 'react-router-dom';
 import User from '../utilities/types/user.type';
 import userService from '../utilities/services/users';
 import { useAppSelector } from '../context/store';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import ReviewsList from '../components/ReviewsList';
 
 const emptyUser = {
   username: '',
@@ -44,10 +48,36 @@ const Profile = (): JSX.Element => {
       {loggedUser.userId !== user.id ? (
         <h1>401 - You are not authorized to view this page</h1>
       ) : (
-        <>
-          <h2>{user.username}</h2>
-          <p>{user.id}</p>
-        </>
+        <Container>
+          <Row style={{ padding: '3rem 0s' }}>
+            <Col xs={4}>
+              <p>
+                <strong>Name:</strong>
+                {` ${user.firstName} ${user.lastName}`}
+              </p>
+              <p>
+                <strong>Username:</strong> {user.username}
+              </p>
+              <p>
+                <strong>Email:</strong> {user.email}
+              </p>
+              <p>
+                <strong>Member since:</strong> {Date.parse(user.createdAt)}
+              </p>
+            </Col>
+            <Col>
+              {user.reviews.length > 0 ? (
+                <>
+                  <h3 style={{ textAlign: 'left' }}>My reviews:</h3>
+                  <ReviewsList reviews={user.reviews} />
+                </>
+              ) : (
+                <h3 style={{ textAlign: 'left' }}>No reviews</h3>
+              )}
+            </Col>
+          </Row>
+          <Row></Row>
+        </Container>
       )}
     </>
   );
