@@ -9,9 +9,12 @@ import './Login.scss';
 import { useRef, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import loginService from '../utilities/services/login';
+import bookService from '../utilities/services/books';
 
 const Login = (): JSX.Element => {
   const [show, setShow] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
   const target = useRef(null);
 
   const errorStyle = {
@@ -23,8 +26,21 @@ const Login = (): JSX.Element => {
       email: '',
       password: '',
     },
-    onSubmit: values => {
+    onSubmit: async values => {
       console.log(values);
+      try {
+        const loggedUser = await loginService.login(values);
+        window.localStorage.setItem(
+          'loggedLibraryUser',
+          JSON.stringify(loggedUser)
+        );
+        bookService.setToken(loggedUser.token);
+      } catch (exception) {
+        setIsError(true);
+        setTimeout(() => {
+          setIsError(false);
+        }, 3000);
+      }
     },
     validationSchema: Yup.object({
       email: Yup.string()
@@ -70,6 +86,9 @@ const Login = (): JSX.Element => {
             />
             {formik.touched.password && formik.errors.password ? (
               <p style={errorStyle}>{formik.errors.password}</p>
+            ) : null}
+            {isError ? (
+              <p style={errorStyle}>Invalid email or password.</p>
             ) : null}
           </Form.Group>
           <Row>

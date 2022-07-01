@@ -3,6 +3,8 @@ import getErrorMessage from '../errorHandler';
 import Book from '../types/book.type';
 const baseUrl = 'http://localhost:3001/books';
 
+let token: string;
+
 const checkForQueryParams = (
   page: number | undefined,
   limit: number | undefined
@@ -14,6 +16,7 @@ const checkForQueryParams = (
 };
 
 const getAll = async (page?: number, limit?: number): Promise<Book[]> => {
+  console.log(token);
   let response;
   checkForQueryParams(page, limit)
     ? (response = await axios.get(`${baseUrl}/?page=${page}&limit=${limit}`))
@@ -59,4 +62,8 @@ const getOneById = async (id: string): Promise<Book> => {
   }
 };
 
-export default { getAll, getAllByGenre, getMostPopular, getOneById };
+const setToken = (newToken: string) => {
+  token = `bearer ${newToken}`;
+};
+
+export default { getAll, getAllByGenre, getMostPopular, getOneById, setToken };
