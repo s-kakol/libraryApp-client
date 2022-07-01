@@ -39,7 +39,14 @@ const Footer = (): JSX.Element => {
           </Col>
         </Row>
       </Container>
-      <div style={{ margin: 'auto', width: '50%', textAlign: 'center' }}>
+      <div
+        style={{
+          margin: 'auto',
+          width: '50%',
+          textAlign: 'center',
+          paddingBottom: 12,
+        }}
+      >
         @Copyright Notice 2022
       </div>
     </div>
